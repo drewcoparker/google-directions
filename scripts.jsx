@@ -20,21 +20,16 @@ initialize();
 class DirectionsForm extends React.Component {
     constructor(props) {
         super(props);
-        // this.zoomToCity = this.zoomToCity.bind(this);
+        this.autoCompleteProcessor = this.autoCompleteProcessor.bind(this);
         this.getDirections = this.getDirections.bind(this);
     }
 
-    // zoomToCity() {
-    //     var zoomCity =
-    //     var service = new google.maps.places.PlacesService(map);
-    //     service.nearbySearch({
-    //         location: zoomCity,
-    //         radius: 500,
-    //         type: ['store']
-    //     }, function(results, status) {
-    //         console.log(results);
-    //     })
-    // }
+
+    autoCompleteProcessor(event) {
+        event.preventDefault();
+        var input = document.getElementById(event.target.id);
+        var autocomplete = new google.maps.places.Autocomplete(input);
+    }
 
     getDirections(event) {
         event.preventDefault();
@@ -66,7 +61,7 @@ class DirectionsForm extends React.Component {
                         type="text"
                         className="typehead form-control"
                         placeholder="Start location"
-                        onBlur={this.zoomToCity}
+                        onChange={this.autoCompleteProcessor}
                     />
                 </div>
                 <div className="form-group">
@@ -75,7 +70,7 @@ class DirectionsForm extends React.Component {
                         type="text"
                         className="typehead form-control"
                         placeholder="Destination"
-                        onBlur={this.zoomToCity}
+                        onChange={this.autoCompleteProcessor}
                     />
                 </div>
                 <button type="submit" className="btn btn-info">Get directions</button>
