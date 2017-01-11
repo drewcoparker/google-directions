@@ -1,6 +1,7 @@
 
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
+var geocoder = new google.maps.Geocoder();
 var map;
 // Create a new map object and call it bellow
 function initialize() {
@@ -22,13 +23,35 @@ class DirectionsForm extends React.Component {
         super(props);
         this.autoCompleteProcessor = this.autoCompleteProcessor.bind(this);
         this.getDirections = this.getDirections.bind(this);
+        this.zoomToCity = this.zoomToCity.bind(this);
+    }
+
+    zoomToCity(event) {
+        var place = event.target.value;
+        console.log(place);
+        geocoder.geocode({
+            'address': place
+        }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                // Center map on location
+                map.setCenter(results[0].geometry.location);
+                map.setZoom(14);
+                // Add marker on location
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+            }
+        });
     }
 
 
     autoCompleteProcessor(event) {
         event.preventDefault();
         var input = document.getElementById(event.target.id);
-        var autocomplete = new google.maps.places.Autocomplete(input);
+        var autocomplete = new google.maps.places.Autocomplete(input, {
+            types: ['(cities)']
+        });
     }
 
     getDirections(event) {
@@ -59,18 +82,20 @@ class DirectionsForm extends React.Component {
                     <input
                         id="start-location"
                         type="text"
-                        className="typehead form-control"
+                        className="form-control"
                         placeholder="Start location"
                         onChange={this.autoCompleteProcessor}
+                        onBlur={this.zoomToCity}
                     />
                 </div>
                 <div className="form-group">
                     <input
                         id="end-location"
                         type="text"
-                        className="typehead form-control"
+                        className="form-control"
                         placeholder="Destination"
                         onChange={this.autoCompleteProcessor}
+                        onBlur={this.zoomToCity}
                     />
                 </div>
                 <button type="submit" className="btn btn-info">Get directions</button>
