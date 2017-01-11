@@ -1,0 +1,13 @@
+#map {
+    height: 400px;
+    width: 100%;
+}
+
+#directions-form {
+    margin: 20px;
+    text-align: center;
+}
+
+.form-inline > * {
+   margin:0px 5px;
+}
