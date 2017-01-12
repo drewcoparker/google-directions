@@ -36,11 +36,6 @@ class DirectionsForm extends React.Component {
                 // Center map on location
                 map.setCenter(results[0].geometry.location);
                 map.setZoom(14);
-                // Add marker on location
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location
-                });
             }
         });
     }

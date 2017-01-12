@@ -2,9 +2,15 @@
     margin-bottom: 0;
 }
 
+.map-container {
+    margin: 20px;
+    box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+}
+
 #map {
     height: 400px;
     width: 100%;
+
 }
 
 #directions-form {
@@ -14,4 +20,12 @@
 
 .form-inline > * {
    margin:0px 5px;
+}
+
+#start-location {
+    width: 250px;
+}
+
+#end-location {
+    width: 250px;
 }
