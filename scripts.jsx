@@ -18,6 +18,34 @@ function initialize() {
 }
 initialize();
 
+
+class Map extends React.Component {
+    constructor(props) {
+        super(props);
+
+        }
+    }
+
+    componentDidMount() {
+        window.initMap = this.initMap;
+        loadJS("https://maps.googleapis.com/maps/api/js?key=AIzaSyAaEp9QYcNt6cq0NUJOk0UI8hhrfWTUfDY&libraries=places")
+    }
+
+    initMap() {
+        var mapOptions = {
+                center: {lat: 39.8282, lng: -98.5795},
+                zoom: 4,
+                styles: mapStyle
+            }
+        var map = new google.maps.Map(this.refs.map.getDOMNode(), mapOptions);
+    }
+
+    render() {
+
+    }
+}
+
+
 class DirectionsForm extends React.Component {
     constructor(props) {
         super(props);
@@ -100,7 +128,33 @@ class DirectionsForm extends React.Component {
 }
 
 
+function Test(props) {
+    return(
+        <h1>This is the test route</h1>
+    )
+}
+
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+    }
+
+    render() {
+        return(
+            <div>
+                {this.props.children}
+            </div>
+        )
+    }
+}
+
 ReactDOM.render(
-    <DirectionsForm />,
+    <ReactRouter.Router>
+        <ReactRouter.Route path="/" component={App} >
+            <ReactRouter.IndexRoute component={DirectionsForm} />
+            <ReactRouter.Route path="/cities" component={Test} />
+        </ReactRouter.Route>
+    </ReactRouter.Router>,
     document.getElementById('directions-form')
 )
